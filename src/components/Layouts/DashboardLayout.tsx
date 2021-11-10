@@ -45,6 +45,7 @@ const Drawer = styled(MuiDrawer, {
 })(({ theme, open }) => ({
   "& .MuiDrawer-paper": {
     position: "relative",
+    background :'#0f172a',
     whiteSpace: "nowrap",
     width: drawerWidth,
     transition: theme.transitions.create("width", {
@@ -58,9 +59,9 @@ const Drawer = styled(MuiDrawer, {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      width: theme.spacing(7),
+      width: theme.spacing(0),
       [theme.breakpoints.up("sm")]: {
-        width: theme.spacing(9),
+        width: theme.spacing(0),
       },
     }),
   },
@@ -76,7 +77,7 @@ function DashboardContent() {
   return (
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar position="absolute" open={open}>
+        <AppBar position="absolute" color="secondary" open={open}>
           <Toolbar
             sx={{
               pr: "24px", // keep right padding when drawer closed
@@ -89,7 +90,7 @@ function DashboardContent() {
               onClick={toggleDrawer}
               sx={{
                 marginRight: "36px",
-                ...(open && { display: "none" }),
+                // ...(open && { display: "none" }),
               }}
             >
               <MenuIcon />
@@ -101,7 +102,7 @@ function DashboardContent() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              OTG
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -119,9 +120,7 @@ function DashboardContent() {
               px: [1],
             }}
           >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
+
           </Toolbar>
           <Divider />
           <List>{mainListItems}</List>

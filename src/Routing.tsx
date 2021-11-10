@@ -1,6 +1,7 @@
 import { Navigate, useRoutes } from "react-router";
 import Layout from "./components/Layouts/DashboardLayout";
 import SignIn from "./pages/SignIn";
+import ProtectedRoute from "./ProtectedRoute";
 import { useAppSelector } from "./redux/store";
 
 const Routing = () => {
@@ -9,24 +10,29 @@ const Routing = () => {
   const routes = useRoutes([
     {
       path: "/",
-      element: <Layout />,
+      element: isAuth ? <Layout /> : <Navigate to="/login" />,
       children: [
         {
           path: "/",
-          element: isAuth ? <div>Home</div> : <Navigate to="/login" />,
+          element: <Navigate to="dashboard" />,
         },
         {
-          path: "/Dashboard",
-          element: isAuth ? <div>Dashboard</div> : <Navigate to="/dashboard" />,
+          path: "dashboard",
+          element: <div>Dashboard</div>,
         },
         {
-          path: "/customers",
-          element: isAuth ? <div>customers</div> : <Navigate to="/customers" />,
+          path: "finance",
+          children: [
+            {
+              path: "customers",
+              element: <div>Customers</div>,
+            },
+          ],
         },
       ],
     },
     {
-      path: "/login",
+      path: "login",
       element: isAuth ? <Navigate to="/dashboard" /> : <SignIn />,
     },
     {

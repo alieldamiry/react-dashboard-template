@@ -3,9 +3,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { makeStyles } from "@mui/styles";
-import {  StarBorder } from "@mui/icons-material";
+import { StarBorder } from "@mui/icons-material";
 
-const useStyles = makeStyles((theme: any) => ({
+const useStyles = makeStyles(() => ({
   listItemIcon: {
     minWidth: "35px",
     color: "inherit",
@@ -13,33 +13,32 @@ const useStyles = makeStyles((theme: any) => ({
   listItemClass: {
     textDecoration: "none",
     color: "inherit",
-    textTransform: 'capitalize'
+    textTransform: "capitalize",
   },
   nested: {
-    paddingLeft: theme.spacing(3.5),
-    background:" rgba(0,0,0,0.2)"
+    paddingLeft: "",
+    background: " rgba(0,0,0,0.2)",
   },
   links: {
     color: "#fff !important",
-    margin:" auto",
-    opacity : "0.5 !important",
+    margin: " auto",
+    opacity: "0.5 !important",
     display: "block",
-   },
+    textDecoration: "none",
+  },
   active: {
     backgroundColor: "rgba(255,255,255,0.1)",
     color: "#fff !important",
     display: "block",
-    opacity : "1 !important",
-   
-     borderRadius:" 8px",
-     width: "90%",
-  },
+    opacity: "1 !important",
 
+    borderRadius: " 8px",
+    width: "90%",
+  },
 
   // imgIcon:{
   //   height: "20px"
   // },
-
 }));
 
 interface SidebarLinkPropTypes {
@@ -57,11 +56,16 @@ const SidebarLink: React.FC<SidebarLinkPropTypes> = ({
 }) => {
   const classes = useStyles();
   return (
-    <NavLink className={({ isActive }) => classes.links + (isActive ? classes.active : "")} to={to}>
+    <NavLink
+      className={({ isActive }) =>
+        classes.links + " " + (isActive ? classes.active : "")
+      }
+      to={to}
+    >
       <ListItem button className={isNested ? classes.nested : ""}>
         <ListItemIcon className={classes.listItemIcon}>
           {icon}
-        {/* <img src={cart} className={classes.imgIcon} /> */}
+          {/* <img src={cart} className={classes.imgIcon} /> */}
         </ListItemIcon>
         <ListItemText primary={text} className={classes.listItemClass} />
       </ListItem>
