@@ -1,11 +1,11 @@
 import { MenuItem, TextField } from "@mui/material";
 import { Field } from "formik";
 
-interface propType {
-  label: string;
-  name: string;
-  [x: string]: any;
-}
+// interface propType {
+//   label: string;
+//   name: string;
+//   [x: string]: any;
+// }
 
 const Select = (props: { [x: string]: any }) => {
   const { label, name, options, ...rest } = props;

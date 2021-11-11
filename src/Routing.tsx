@@ -1,8 +1,9 @@
 import { Navigate, useRoutes } from "react-router";
 import Layout from "./components/Layouts/DashboardLayout";
 import SignIn from "./pages/SignIn";
-import ProtectedRoute from "./ProtectedRoute";
+// import ProtectedRoute from "./ProtectedRoute";
 import { useAppSelector } from "./redux/store";
+import Customers from './modules/finance/customers'
 
 const Routing = () => {
   const isAuth = useAppSelector((state) => state.auth.isAuth);
@@ -25,7 +26,7 @@ const Routing = () => {
           children: [
             {
               path: "customers",
-              element: <div>Customers</div>,
+              element: <Customers />,
             },
           ],
         },
