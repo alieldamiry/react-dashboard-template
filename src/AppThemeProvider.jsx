@@ -19,10 +19,10 @@ const AppThemeProvider = ({ children }) => {
   const { i18n } = useTranslation();
 
   const theme = createTheme({
-    direction: "ltr",
+    direction: lang === "ar" ? "rtl" : "ltr",
     palette: {
       primary: {
-        main: "#950909",
+        main: "#7366ff",
       },
     },
   });

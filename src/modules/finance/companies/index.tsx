@@ -8,6 +8,7 @@ import Paper from "@mui/material/Paper";
 import { Pagination, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import Create from "./Create";
+import { useTranslation } from "react-i18next";
 
 const rows = [
   {
@@ -16,12 +17,14 @@ const rows = [
     phoneNumber: "0101010101",
   },
 ];
-export default function BasicTable() {
+export default function Companies() {
+  const { t } = useTranslation();
+
   return (
     <div>
       <div className="entity-header">
         <Typography component="h2" variant="h5" sx={{ fontWeight: "bold" }}>
-          Customers
+          {t("Companies")}
         </Typography>
         <Create />
       </div>

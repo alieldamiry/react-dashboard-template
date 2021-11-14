@@ -13,8 +13,8 @@ const ListItems = () => {
         icon={<DashboardIcon />}
       />
       <SidebarLink
-        to="finance/customers"
-        text="Customers"
+        to="finance/companies"
+        text="Companies"
         icon={<PeopleIcon />}
       />
     </div>

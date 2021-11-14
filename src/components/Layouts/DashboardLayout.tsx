@@ -77,6 +77,7 @@ const Drawer = styled(MuiDrawer, {
 export default function DashboardLayout() {
   const [open, setOpen] = React.useState(true);
   const isLoading = useAppSelector((state) => state.auth.status === "loading");
+  const lang = useAppSelector((state) => state.language.current);
   const dispatch = useDispatch();
   const toggleDrawer = () => {
     setOpen(!open);
@@ -120,7 +121,11 @@ export default function DashboardLayout() {
               disabled={isLoading}
             >
               <Tooltip title="Logout">
-                <ExitToAppIcon />
+                <ExitToAppIcon
+                  sx={{
+                    transform: lang === "ar" ? `scaleX(-1)` : "",
+                  }}
+                />
               </Tooltip>
             </IconButton>
           </div>

@@ -2,7 +2,7 @@ import { Navigate, useRoutes } from "react-router";
 import Layout from "./components/Layouts/DashboardLayout";
 import SignIn from "./pages/SignIn";
 import { useAppSelector } from "./redux/store";
-import Customers from "./modules/finance/customers";
+import Companies from "./modules/finance/companies";
 import Dashboard from "src/pages/Dashboard";
 
 const Routing = () => {
@@ -25,8 +25,8 @@ const Routing = () => {
           path: "finance",
           children: [
             {
-              path: "customers",
-              element: <Customers />,
+              path: "companies",
+              element: <Companies />,
             },
           ],
         },
