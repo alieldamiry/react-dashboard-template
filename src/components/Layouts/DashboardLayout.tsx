@@ -12,13 +12,12 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import {
-  mainListItems,
-  secondaryListItems,
-} from "src/components/Layouts/ListItems";
-import { Tooltip } from "@mui/material";
+import ListItems from "src/components/Layouts/ListItems";
+import { Button, Tooltip } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { logout } from "src/redux/slices/authSlice";
+import { toggleLang } from "src/redux/slices/langSlice";
+import { useAppSelector } from "src/redux/store";
 
 const drawerWidth: number = 240;
 
@@ -39,7 +38,7 @@ const AppBar = styled(MuiAppBar, {
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
-    marginLeft: drawerWidth,
+    marginInlineStart: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
@@ -75,8 +74,9 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-function DashboardContent() {
+export default function DashboardLayout() {
   const [open, setOpen] = React.useState(true);
+  const isLoading = useAppSelector((state) => state.auth.status === "loading");
   const dispatch = useDispatch();
   const toggleDrawer = () => {
     setOpen(!open);
@@ -111,13 +111,19 @@ function DashboardContent() {
             color="inherit"
             noWrap
             sx={{ flexGrow: 1 }}
-          >
-          </Typography>
-          <IconButton color="inherit" onClick={() => dispatch(logout())}>
-            <Tooltip title="Logout">
-              <ExitToAppIcon />
-            </Tooltip>
-          </IconButton>
+          ></Typography>
+          <div>
+            <Button onClick={() => dispatch(toggleLang())}>Change Lang</Button>
+            <IconButton
+              color="inherit"
+              onClick={() => dispatch(logout())}
+              disabled={isLoading}
+            >
+              <Tooltip title="Logout">
+                <ExitToAppIcon />
+              </Tooltip>
+            </IconButton>
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -130,9 +136,10 @@ function DashboardContent() {
           }}
         ></Toolbar>
         <Divider />
-        <List>{mainListItems}</List>
+        <List>
+          <ListItems />
+        </List>
         <Divider />
-        <List>{secondaryListItems}</List>
       </Drawer>
       <Box
         component="main"
@@ -147,12 +154,10 @@ function DashboardContent() {
         }}
       >
         <Toolbar />
-        <Outlet />
+        <main>
+          <Outlet />
+        </main>
       </Box>
     </Box>
   );
-}
-
-export default function Dashboard() {
-  return <DashboardContent />;
 }

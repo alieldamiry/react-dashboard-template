@@ -8,7 +8,7 @@ import { StarBorder } from "@mui/icons-material";
 const useStyles = makeStyles(() => ({
   listItemIcon: {
     minWidth: "35px",
-    color: "inherit",
+    color: "#fff !important",
   },
   listItemClass: {
     textDecoration: "none",

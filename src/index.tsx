@@ -8,6 +8,8 @@ import { Provider as ReduxProvider } from "react-redux";
 import { store } from "./redux/store";
 import persistStore from "redux-persist/es/persistStore";
 import { PersistGate } from "redux-persist/integration/react";
+import AppThemeProvider from "./AppThemeProvider";
+import "./i18next";
 
 let persistor = persistStore(store);
 ReactDOM.render(
@@ -15,7 +17,9 @@ ReactDOM.render(
     <BrowserRouter>
       <ReduxProvider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <App />
+          <AppThemeProvider>
+            <App />
+          </AppThemeProvider>
         </PersistGate>
       </ReduxProvider>
     </BrowserRouter>

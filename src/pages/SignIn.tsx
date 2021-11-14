@@ -3,7 +3,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
@@ -13,6 +12,8 @@ import FormikControl from "src/components/formik/FormikControl";
 import { login } from "src/redux/slices/authSlice";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { useAppSelector } from "src/redux/store";
 
 function Copyright(props: any) {
   return (
@@ -23,10 +24,10 @@ function Copyright(props: any) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="https://onetecgroup.com/">
+        OneTecGroup
       </Link>
-      {new Date().getFullYear()}
+      {` ${new Date().getFullYear()}`}
     </Typography>
   );
 }
@@ -35,10 +36,11 @@ const theme = createTheme();
 
 export default function SignIn() {
   const dispatch = useDispatch();
+  const isLoading = useAppSelector((state) => state.auth.status === "loading");
+  const { t } = useTranslation();
 
   const formikSubmit = (data: { email: string; password: string }) => {
     dispatch(login(data));
-    console.log(data);
   };
 
   const initialValues = {
@@ -72,7 +74,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            {t("Sign in")}
           </Typography>
           <Box component="div" sx={{ mt: 1 }}>
             <Formik
@@ -98,26 +100,14 @@ export default function SignIn() {
                 />
 
                 <Button
-                  // disabled={loading}
+                  disabled={isLoading}
                   type="submit"
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Sign In
+                  {t("Sign In")}
                 </Button>
-                <Grid container>
-                  <Grid item xs></Grid>
-                  <Grid item>
-                    <Link
-                      href="https://loo2ta.com/register"
-                      target="_blank"
-                      variant="body2"
-                    >
-                      {"Don't have an account? Sign Up"}
-                    </Link>
-                  </Grid>
-                </Grid>
               </Form>
             </Formik>
           </Box>

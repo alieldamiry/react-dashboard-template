@@ -9,8 +9,6 @@ export const login = createAsyncThunk(
   }
 );
 export const logout = createAsyncThunk("auth/logout", async () => {
-  console.log('loggin out.........');
-  
   const response = await api.post("/auth/logout");
   return response.data;
 });
@@ -50,7 +48,6 @@ export const authSlice = createSlice({
       });
       builder
       .addCase(logout.fulfilled, (state) => {
-        console.log('loggin out..');
         
         state.user = {};
         state.status = "idle";

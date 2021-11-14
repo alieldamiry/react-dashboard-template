@@ -5,9 +5,11 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import thunk from "redux-thunk";
 import authSlice from "./slices/authSlice";
+import langSlice from "./slices/langSlice";
 
 const reducers = combineReducers({
   auth: authSlice,
+  language: langSlice,
 });
 
 const persistConfig = {
