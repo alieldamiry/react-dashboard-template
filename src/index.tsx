@@ -1,27 +1,35 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./global.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { Provider as ReduxProvider } from "react-redux";
-import { store } from "./redux/store";
 import persistStore from "redux-persist/es/persistStore";
 import { PersistGate } from "redux-persist/integration/react";
+import { store } from "./redux/store";
 import AppThemeProvider from "./AppThemeProvider";
-import "./i18next";
+import { Provider as ReduxProvider } from "react-redux";
+import { QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { queryClient } from "./react-query/queryClient";
 
+import "./global.css";
+
+import App from "./App";
+import "./i18next";
 let persistor = persistStore(store);
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <ReduxProvider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <AppThemeProvider>
-            <App />
-          </AppThemeProvider>
-        </PersistGate>
-      </ReduxProvider>
+      <QueryClientProvider client={queryClient}>
+        <ReduxProvider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <AppThemeProvider>
+              <App />
+            </AppThemeProvider>
+          </PersistGate>
+        </ReduxProvider>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
