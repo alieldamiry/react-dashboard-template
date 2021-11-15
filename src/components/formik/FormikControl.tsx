@@ -1,4 +1,5 @@
 import Input from "./Input";
+import SearchableSelect from "./SearchableSelect";
 import Select from "./Select";
 
 const FormikControl = (props: { [x: string]: any }) => {
@@ -8,6 +9,8 @@ const FormikControl = (props: { [x: string]: any }) => {
       return <Input {...rest} />;
     case "select":
       return <Select {...rest} />;
+    case "searchable-select":
+      return <SearchableSelect {...rest} />;
     default:
       return <div></div>;
   }

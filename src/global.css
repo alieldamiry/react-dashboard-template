@@ -54,5 +54,5 @@ code {
   border-top: 1px solid #ccc;
   padding-top: 1rem;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }

@@ -14,6 +14,7 @@ const Create = () => {
     gl_code: "",
     level: "",
     description: "",
+    films: "",
   };
 
   const validationSchema = Yup.object({
@@ -21,6 +22,7 @@ const Create = () => {
     gl_code: Yup.string().required("Required Field"),
     level: Yup.string().required("Required Field"),
     description: Yup.string().required("Required Field"),
+    films: Yup.string().required("Required Field"),
   });
 
   const submitHandler = (data: any) => {
@@ -100,24 +102,33 @@ const Create = () => {
                     label="Description"
                   />
                 </Grid>
-                <Grid item xs={12}>
-                  <div>
-                    <div className="modal-footer">
-                      <Button
-                        color="error"
-                        onClick={() => setOpen(false)}
-                        variant="contained"
-                        sx={{ m: 0.5 }}
-                      >
-                        close
-                      </Button>
-                      <Button type="submit" variant="contained" sx={{ m: 0.5 }}>
-                        Create
-                      </Button>
-                    </div>
-                  </div>
+                <Grid item xs={12} md={6}>
+                  <FormikControl
+                    control="searchable-select"
+                    multiline
+                    minRows={2}
+                    name="films"
+                    options={[
+                      { label: "option1", value: 11 },
+                      { label: "option2", value: 2 },
+                    ]}
+                    label="Films"
+                  />
                 </Grid>
               </Grid>
+              <div className="modal-footer">
+                <Button
+                  color="error"
+                  onClick={() => setOpen(false)}
+                  variant="contained"
+                  sx={{ m: 0.5 }}
+                >
+                  close
+                </Button>
+                <Button type="submit" variant="contained" sx={{ m: 0.5 }}>
+                  Create
+                </Button>
+              </div>
             </Form>
           </Formik>
         </div>

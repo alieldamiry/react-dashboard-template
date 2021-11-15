@@ -1,6 +1,6 @@
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
-import SidebarLink from "../SidebarLink";
+import SidebarLink from "./SidebarLink";
 import { useTranslation } from "react-i18next";
 
 const ListItems = () => {

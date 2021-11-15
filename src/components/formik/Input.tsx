@@ -1,14 +1,15 @@
 import { TextField } from "@mui/material";
-import { Field } from "formik";
+import { FastField, Field } from "formik";
 import { useTranslation } from "react-i18next";
 
 const Input = (props: { [x: string]: any }) => {
-  const { label, name, ...rest } = props;
+  const { label, name, fast, ...rest } = props;
   const { t } = useTranslation();
-
+  const FieldComponent = fast ? FastField : Field;
   return (
-    <Field name={name}>
+    <FieldComponent name={name}>
       {({ field, form }: any) => {
+        console.log(`${name} rendering...`);
         return (
           <TextField
             fullWidth
@@ -18,11 +19,11 @@ const Input = (props: { [x: string]: any }) => {
             label={t(label)}
             variant="outlined"
             error={form.errors[name] && form.touched[name]}
-            helperText={t(form.touched[name] && form.errors[name])}
+            helperText={form.touched[name] && form.errors[name]}
           />
         );
       }}
-    </Field>
+    </FieldComponent>
   );
 };
 
