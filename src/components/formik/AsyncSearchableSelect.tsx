@@ -2,8 +2,8 @@ import { useQuery } from "react-query";
 import SearchableSelect from "./SearchableSelect";
 
 const AsyncSearchableSelect = (props: any) => {
-  const { fetchFunc, ...rest } = props;
-  const { data, isError, isLoading } = useQuery("allBranches", fetchFunc);
+  const { queryFunc, queryKey, ...rest } = props;
+  const { data, isError, isLoading } = useQuery(queryKey, queryFunc);
 
   if (isError) {
     <div>Couldn't fetch {props.name} </div>;

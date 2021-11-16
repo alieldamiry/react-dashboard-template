@@ -9,24 +9,34 @@ import { Pagination, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import Create from "./Create";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "react-query";
+import { fetchcCompanies } from "src/controllers/services/companies";
+import DeleteModal from "src/components/DeleteModal";
+import Edit from "./Edit";
+import { useState } from "react";
+import { calculatePage } from "src/utils/calculatePage";
 
-const rows = [
-  {
-    name: "ahmed",
-    email: "aaa@sss.com",
-    phoneNumber: "0101010101",
-  },
-];
 export default function Companies() {
   const { t } = useTranslation();
+  const [numberOfPages, setNumberOfPages] = useState(0);
+  const [page] = useState(1);
 
+  const { data, refetch } = useQuery(
+    ["companies", page],
+    () => fetchcCompanies(1),
+    {
+      onSuccess: (res) => {
+        setNumberOfPages(calculatePage(res.total, res.per_page));
+      },
+    }
+  );
   return (
     <div>
       <div className="entity-header">
         <Typography component="h2" variant="h5" sx={{ fontWeight: "bold" }}>
           {t("Companies")}
         </Typography>
-        <Create />
+        <Create refetch={refetch} />
       </div>
       <Box sx={{ p: 3 }}>
         <TableContainer component={Paper}>
@@ -34,13 +44,14 @@ export default function Companies() {
             <TableHead sx={{ fontWeight: "bold" }}>
               <TableRow>
                 <TableCell>Name</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Phone Number</TableCell>
-                <TableCell>Actions</TableCell>
+                <TableCell>Code</TableCell>
+                <TableCell>Type</TableCell>
+                <TableCell>Created At</TableCell>
+                <TableCell>Controls</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
+              {data?.data.map((row: any) => (
                 <TableRow
                   key={row.name}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -48,11 +59,17 @@ export default function Companies() {
                   <TableCell component="th" scope="row">
                     {row.name}
                   </TableCell>
-                  <TableCell>{row.email}</TableCell>
-                  <TableCell>{row.phoneNumber}</TableCell>
-                  {/* <TableCell >{row.carbs}</TableCell>
-                  <TableCell >{row.protein}</TableCell> */}
-                  <TableCell>Actions</TableCell>
+                  <TableCell>{row.code}</TableCell>
+                  <TableCell>{row.type}</TableCell>
+                  <TableCell>{row.created_at}</TableCell>
+                  <TableCell>
+                    <Edit refetch={refetch} data={row} />
+                    <DeleteModal
+                      entity="companies"
+                      refetch={refetch}
+                      id={row.id}
+                    />
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -64,7 +81,7 @@ export default function Companies() {
               justifyContent: "center",
             }}
           >
-            <Pagination count={10} />
+            <Pagination count={numberOfPages} />
           </Box>
         </TableContainer>
       </Box>

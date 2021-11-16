@@ -24,7 +24,7 @@ const Input = (props: { [x: string]: any }) => {
             label={t(label)}
             variant="outlined"
             error={form.errors[name] && form.touched[name]}
-            helperText={form.touched[name] && form.errors[name]}
+            helperText={form.touched[name] && t(form.errors[name])}
           />
         );
       }}

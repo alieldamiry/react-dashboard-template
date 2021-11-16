@@ -13,7 +13,7 @@ const api = axios.create(defaultOptions);
 // Set the AUTH token for any request
 api.interceptors.request.use(function (config: any) {
   const token = localStorage.getItem("access_token");
-  config.headers.Authorization = token ? `bearer ${token}` : "";
+  config.headers.Authorization = token ? `Bearer ${token}` : "";
   return config;
 });
 

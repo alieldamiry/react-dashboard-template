@@ -2,14 +2,14 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "src/controllers/api";
 
 export const login = createAsyncThunk(
-  "auth/login",
+  "/login",
   async (data: { email: string; password: string }) => {
-    const response = await api.post("/auth/login", data);
+    const response = await api.post("/login", data);
     return response.data;
   }
 );
 export const logout = createAsyncThunk("auth/logout", async () => {
-  const response = await api.post("/auth/logout");
+  const response = await api.post("/logout");
   return response.data;
 });
 

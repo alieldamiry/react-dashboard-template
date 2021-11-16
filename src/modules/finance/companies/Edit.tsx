@@ -5,15 +5,20 @@ import { useTranslation } from "react-i18next";
 import { useMutation } from "react-query";
 import FormikControl from "src/components/formik/FormikControl";
 import {
-  createCompany,
+  updateCompany,
   fetchParentCompanies,
 } from "src/controllers/services/companies";
 import * as Yup from "yup";
 
-const Create = ({ refetch }: any) => {
+interface propTypes {
+  data: any;
+  refetch: any;
+}
+
+const Edit: React.FC<propTypes> = ({ data, refetch }) => {
   const [open, setOpen] = useState(false);
   const { mutate, isLoading } = useMutation(
-    (formData) => createCompany(formData),
+    (formData: any) => updateCompany(formData, data.id),
     {
       onSuccess: () => {
         setOpen(false);
@@ -24,13 +29,13 @@ const Create = ({ refetch }: any) => {
   const { t } = useTranslation();
 
   const initialValues = {
-    name: "",
-    localized_name: "",
-    code: "",
-    status: "",
-    type: "",
-    owned_percentage: "",
-    parent_id: "",
+    name: data.name,
+    localized_name: data.localized_name,
+    code: data.code,
+    status: data.status,
+    type: data.type,
+    owned_percentage: data.owned_percentage,
+    parent_id: data.parent_id,
   };
 
   const validationSchema = Yup.object({
@@ -66,8 +71,8 @@ const Create = ({ refetch }: any) => {
 
   return (
     <>
-      <Button onClick={() => setOpen(true)} variant="contained">
-        {t("Create")}
+      <Button size="small" onClick={() => setOpen(true)} variant="contained">
+        {t("Edit")}
       </Button>
       <Modal
         open={open}
@@ -77,7 +82,7 @@ const Create = ({ refetch }: any) => {
       >
         <div className="modal-box">
           <div>
-            <h4 className="modal-header">{t("Create a new Company")}</h4>
+            <h4 className="modal-header">{t("Edit ")}</h4>
           </div>
           <Formik
             initialValues={initialValues}
@@ -175,7 +180,7 @@ const Create = ({ refetch }: any) => {
                       disabled={isLoading}
                       sx={{ m: 0.5 }}
                     >
-                      Create
+                      Submit
                     </Button>
                   </div>
                 </Form>
@@ -188,4 +193,4 @@ const Create = ({ refetch }: any) => {
   );
 };
 
-export default Create;
+export default Edit;
